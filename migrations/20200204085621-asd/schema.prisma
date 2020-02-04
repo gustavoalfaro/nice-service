@@ -1,0 +1,29 @@
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator photon {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         String  @default(cuid()) @id
+  username   String  @unique
+  emails     Email[]
+  firstName  String
+  lastName   String
+  type       String
+  telephones Telephone[]
+}
+
+model Telephone {
+  id          String  @default(cuid()) @id
+  phone       Int  @unique
+  description String
+}
+
+model Email {
+  id          String  @default(cuid()) @id
+  email       String @unique
+}

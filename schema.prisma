@@ -1,0 +1,44 @@
+generator photon {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Email {
+  email String @default("") @unique
+  id    String @id
+  user  User?
+}
+
+model OneToMay {
+  id   String @id
+  name String @default("")
+  user User?
+}
+
+model Telephone {
+  description String @default("")
+  id          String @id
+  phone       Int    @default(0) @unique
+  user        User?
+}
+
+model User {
+  firstName  String      @default("")
+  id         String      @id
+  lastName   String      @default("")
+  type       String      @default("")
+  username   String      @default("") @unique
+  emails     Email[]
+  oneToMays  OneToMay[]
+  telephones Telephone[]
+}
+
+model account {
+  password String
+  user_id  Int    @id
+  username String @unique
+}
